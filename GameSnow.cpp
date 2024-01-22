@@ -24,6 +24,7 @@ void GameSnow::init(int n)
 {
    //cout << "Init with " << n << " particles" << endl;
     cout << "Init now does nothing" << endl;//mas na verdade tinha que nao?
+    cout << "active sns: " << snp.nbSnowflakesActifs << endl;
     //pra usar o input - ai chamna o fillSnowFlake Array
  /*   snowflakes.clear();
 
@@ -153,12 +154,16 @@ void GameSnow::update(unsigned long dt)
     //(deleteMe == true) - na propria fcao update seta pra true qdo outofbounds
     for (size_t i = 0; i < snp.nbSnowflakesActifs; i++)
     {
-      // cout << "i: " << i << snp.pool[i].shouldDelete() << endl;
+        //cout << i << endl;
+        cout << "i: " << i << "  " << snp.pool[i].shouldDelete() << endl;
+       // cout << snp.pool[i].shouldDelete() << endl;
+
         if (snp.pool[i].shouldDelete())
         { 
-            cout << " i: " << i << " isOutofBounds" << endl;
-            //snp.pool[i].x = 0;
-            //snp.pool[i].y = 0;
+            //cout << " i: " << i << " isOutofBounds" << endl;
+            snp.pool[i].x = rand() / (double)RAND_MAX * SCREEN_WIDTH;
+            snp.pool[i].y = rand() / (double)RAND_MAX * (SCREEN_HEIGHT + 10) - 10;
+            snp.pool[i].deleteMe = false;
         }  
     }
        

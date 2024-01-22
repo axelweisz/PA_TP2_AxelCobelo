@@ -6,9 +6,7 @@
 
 using namespace std;
 
-Snowflake::Snowflake() : GameObject{ x, y }
-{
-}
+Snowflake::Snowflake() : GameObject{ x, y }{}
 
 Snowflake::Snowflake(double x, double y)
     : GameObject{x, y}
@@ -28,7 +26,8 @@ void Snowflake::update(double dt)
 {
     GameObject::update(dt);
 
-    if(y > SCREEN_HEIGHT + h) {
+    if(y > SCREEN_HEIGHT + h)
+    {
         deleteMe = true;
     }
 }

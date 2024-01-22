@@ -23,11 +23,12 @@ void GameObject::update(double dt)
 
 void GameObject::render(SDL_Renderer* renderer) const
 {
-    SDL_SetRenderDrawColor(renderer,
-                           (int) (color_r * 255),
-                           (int) (color_g * 255),
-                           (int) (color_b * 255),
-                           (int) (color_a * 255));
+    SDL_SetRenderDrawColor( renderer,
+                            (int) (color_r * 255),
+                            (int) (color_g * 255),
+                            (int) (color_b * 255),
+                            (int) (color_a * 255)
+                            );
     SDL_Rect r;
     r.x = (int) x;
     r.y = (int) y;

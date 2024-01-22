@@ -10,6 +10,7 @@ public:
     virtual void update(double dt);
     virtual void render(SDL_Renderer* renderer) const;
     void testCollision(Player& obj);
+    bool deleteMe;
 
     double getW() const;
     double getH() const;
@@ -34,5 +35,5 @@ protected:
     double blyyp[256];
 
     double color_r, color_g, color_b, color_a;
-    bool deleteMe;
+    
 };
