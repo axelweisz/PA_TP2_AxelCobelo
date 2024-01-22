@@ -11,12 +11,15 @@
 class GameSnow : public Game
 {
 public:
-    SnowflakePool snp;
-    GameSnow();
+  
+   // GameSnow();
 
+    SnowflakePool snp;
     void handleInput(const SDL_Event& event) override;
     void update(unsigned long dt) override;
     void render(SDL_Renderer* renderer) const override;
+
+    GameSnow();
 
     void init(int snowflakes);
     void addSnowflake();

@@ -7,6 +7,7 @@
 class Snowflake : public GameObject
 {
 public:
+    Snowflake();
     Snowflake(double x, double y);
 
     void update(double dt) override;

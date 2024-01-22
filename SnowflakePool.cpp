@@ -1,11 +1,11 @@
 #include "SnowflakePool.h"
-
+#include "Constants.h"
 using namespace std;
 
 SnowflakePool::SnowflakePool(const int size) : 
-	nbSnowflakesActifs{ 0 }, pool(make_unique<Snowflake[]>(size))
+	nbSnowflakesActifs{ MAX_NUM_SNOWFLAKES }, pool(make_unique<Snowflake[]>(size))
 {
-	fillSnowflakeArray(size);
+	fillSnowflakeArray();
 }
 
 void SnowflakePool::spawn()
@@ -16,11 +16,13 @@ void SnowflakePool::destroy(size_t deleteIdx)
 {
 }
 
-void SnowflakePool::fillSnowflakeArray(size_t size)
+void SnowflakePool::fillSnowflakeArray()
 {
-	for (size_t i = 0; i < size; i++)
+	for (size_t i = 0; i < MAX_NUM_SNOWFLAKES; i++)
 	{
-		pool[i] = Snowflake(0.0, 0.0);
+		double x = rand() / (double)RAND_MAX * SCREEN_WIDTH;
+		double y = rand() / (double)RAND_MAX * (SCREEN_HEIGHT + 10) - 10;
+		pool[i] = Snowflake(x, y);
 	}
 }
 

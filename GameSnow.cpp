@@ -15,18 +15,17 @@
 
 using namespace std;
 
-GameSnow::GameSnow() : m_pause(false), p(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+GameSnow::GameSnow() : m_pause(false), p(SCREEN_WIDTH/2, SCREEN_HEIGHT/2), snp(MAX_NUM_SNOWFLAKES)
 {
     init(presets[0]);
 }
 
 void GameSnow::init(int n)
 {
-    SnowflakePool mySnowflakePool(100);
-
-    cout << "Init with " << n << " particles" << endl;
-
-    snowflakes.clear();
+   //cout << "Init with " << n << " particles" << endl;
+    cout << "Init now does nothing" << endl;//mas na verdade tinha que nao?
+    //pra usar o input - ai chamna o fillSnowFlake Array
+ /*   snowflakes.clear();
 
     for(int i=0; i<n; i++) 
     {
@@ -34,7 +33,7 @@ void GameSnow::init(int n)
         double y = rand()/(double)RAND_MAX * (SCREEN_HEIGHT + 10) - 10;
 
         addSnowflake(x, y);
-    }
+    }*/
 }
 
 void GameSnow::addSnowflake()
@@ -138,33 +137,48 @@ void GameSnow::update(unsigned long dt)
     //Physics
     p.update(delta_t);
 
-    for(auto& obj : snowflakes)
+    for (size_t i = 0; i < snp.nbSnowflakesActifs; i++)
     {
-        obj->update(delta_t);
+        snp.pool[i].update(delta_t);
     }
+    //for(auto& obj : snowflakes) {  obj->update(delta_t); }
 
     // Collisions
-    for(auto& obj : snowflakes)
+    for (size_t i = 0; i < snp.nbSnowflakesActifs; i++)
     {
-        obj->testCollision(p);
+        snp.pool[i].testCollision(p);
     }
+
+    //check if snowflake is out of bounds
+    //(deleteMe == true) - na propria fcao update seta pra true qdo outofbounds
+    for (size_t i = 0; i < snp.nbSnowflakesActifs; i++)
+    {
+      // cout << "i: " << i << snp.pool[i].shouldDelete() << endl;
+        if (snp.pool[i].shouldDelete())
+        { 
+            cout << " i: " << i << " isOutofBounds" << endl;
+            //snp.pool[i].x = 0;
+            //snp.pool[i].y = 0;
+        }  
+    }
+       
+    //for(auto& obj : snowflakes) {  obj->testCollision(p);  }
 
     // Remove unused objects
-    long size_before = snowflakes.size();
+    //tem que fazer o codego que qdo o snowflake goes out of bounds
+    //ele volta pra cima
 
-    snowflakes.erase(remove_if(snowflakes.begin(),
-                               snowflakes.end(),
-                               [](auto& ptr) {
-                                   return ptr->shouldDelete();
-                               }),
-                     snowflakes.end());
+    //long size_before = snowflakes.size();
+    //snowflakes.erase(remove_if(snowflakes.begin(),
+    //                           snowflakes.end(),
+    //                           [](auto& ptr) {
+    //                               return ptr->shouldDelete();
+    //                           }),
+    //                 snowflakes.end());
+    //long nb_new_snowflakes = size_before - snowflakes.size();
+    //for(int i=0; i<nb_new_snowflakes; i++){ addSnowflake(); }
 
-    long nb_new_snowflakes = size_before - snowflakes.size();
 
-    for(int i=0; i<nb_new_snowflakes; i++)
-    {
-        addSnowflake();
-    }
 }
 
 void GameSnow::render(SDL_Renderer* renderer) const
@@ -173,13 +187,15 @@ void GameSnow::render(SDL_Renderer* renderer) const
     SDL_SetRenderDrawColor(renderer, 20, 20, 20, 255);
     SDL_RenderClear(renderer);
 
-    // Draw particles
+   //Draw player
     p.render(renderer);
 
-    for(const auto& obj : snowflakes)
+    //Draw particles
+    for (size_t i = 0; i < snp.nbSnowflakesActifs; i++)
     {
-        obj->render(renderer);
+        snp.pool[i].render(renderer);
     }
+    //for(const auto& obj : snowflakes) { obj->render(renderer);}
 
     SDL_RenderPresent(renderer);
 }

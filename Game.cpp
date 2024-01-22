@@ -61,7 +61,7 @@ void Game::loop(SDL_Renderer* renderer)
 
         if (wait < 0) 
         {
-            cout << "WARNING: lag of " << -wait << "ms" << endl;
+            //cout << "WARNING: lag of " << -wait << "ms" << endl;
         } else 
         {
             SDL_Delay(wait);

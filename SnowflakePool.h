@@ -13,10 +13,10 @@ public:
     void destroy(size_t deleteIdx);
 
  // ... Autres méthodes à votre choix ...
-    void fillSnowflakeArray(size_t);
-
-
-private:
-    std::unique_ptr<Snowflake[]> pool; 
+    void fillSnowflakeArray();
     size_t nbSnowflakesActifs;
+    std::unique_ptr<Snowflake[]> pool;
+private:
+     
+   
 };

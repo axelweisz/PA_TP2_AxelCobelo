@@ -6,6 +6,10 @@
 
 using namespace std;
 
+Snowflake::Snowflake() : GameObject{ x, y }
+{
+}
+
 Snowflake::Snowflake(double x, double y)
     : GameObject{x, y}
 {
