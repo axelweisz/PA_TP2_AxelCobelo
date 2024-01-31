@@ -8,6 +8,10 @@
 
 using namespace std;
 
+SnowflakeSine::SnowflakeSine()
+{
+}
+
 SnowflakeSine::SnowflakeSine(double x, double y)
     : Snowflake{x, y}
 {

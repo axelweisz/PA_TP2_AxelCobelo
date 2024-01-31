@@ -7,8 +7,7 @@
 
 using namespace std;
 
-Game::Game() :
-    keepPlaying(true)
+Game::Game() : keepPlaying(true)
 {
 }
        
@@ -27,17 +26,16 @@ void Game::loop(SDL_Renderer* renderer)
     unsigned int lastFrameTime = SDL_GetTicks() - MS_PER_STEP;
     unsigned int timeAccumulator = 0;
 
-    while (keepPlaying) {
-
+    while (keepPlaying) 
+    {
         unsigned int frameTime = SDL_GetTicks();
         unsigned int dt = frameTime - lastFrameTime;
 
-        // Clamp dt to avoid the spiral of death when the game lags
-        if (dt > 100) dt = 100;
+        if (dt > 100) dt = 100; //Avoid spiral of death 
 
         timeAccumulator += dt;
 
-        // -- Events --
+        //handle inpout
         while (SDL_PollEvent(&event)) 
         {
             handleInput(event);
@@ -47,10 +45,8 @@ void Game::loop(SDL_Renderer* renderer)
         while (timeAccumulator >= MS_PER_STEP) 
         {
             update(MS_PER_STEP);
-
             timeAccumulator -= MS_PER_STEP;
         }
-
         update(timeAccumulator);
 
         timeAccumulator = 0;
@@ -61,8 +57,9 @@ void Game::loop(SDL_Renderer* renderer)
 
         if (wait < 0) 
         {
-            //cout << "WARNING: lag of " << -wait << "ms" << endl;
-        } else 
+            cout << "WARNING: lag of " << -wait << "ms" << endl;
+        } 
+        else 
         {
             SDL_Delay(wait);
         }

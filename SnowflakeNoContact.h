@@ -6,6 +6,7 @@
 class SnowflakeNoContact : public Snowflake
 {
 public:
+    SnowflakeNoContact();
     SnowflakeNoContact(double x, double y);
 
     void collide(Player& o) override;

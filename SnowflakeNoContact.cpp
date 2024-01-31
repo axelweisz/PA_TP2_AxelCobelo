@@ -7,6 +7,10 @@
 
 using namespace std;
 
+SnowflakeNoContact::SnowflakeNoContact()
+{
+}
+
 SnowflakeNoContact::SnowflakeNoContact(double x, double y) : Snowflake{x, y}
 {
     color_a = 0.2;

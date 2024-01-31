@@ -7,6 +7,10 @@
 
 using namespace std;
 
+SnowflakeRebound::SnowflakeRebound()
+{
+}
+
 SnowflakeRebound::SnowflakeRebound(double x, double y)
     : Snowflake{x, y}
     , alreadyHit{false}

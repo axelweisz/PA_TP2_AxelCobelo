@@ -1,10 +1,9 @@
 #include <SDL.h>
 #include <vector>
-
-using namespace std;
-
 #include "GameObject.h"
 #include "Player.h"
+
+using namespace std;
 
 GameObject::GameObject(double x, double y) :
     x{x}, y{y},
@@ -23,12 +22,13 @@ void GameObject::update(double dt)
 
 void GameObject::render(SDL_Renderer* renderer) const
 {
-    SDL_SetRenderDrawColor( renderer,
-                            (int) (color_r * 255),
-                            (int) (color_g * 255),
-                            (int) (color_b * 255),
-                            (int) (color_a * 255)
-                            );
+    SDL_SetRenderDrawColor( 
+                          renderer,
+                          (int)(color_r * 255),
+                          (int)(color_g * 255),
+                          (int)(color_b * 255),
+                          (int)(color_a * 255)
+                          );
     SDL_Rect r;
     r.x = (int) x;
     r.y = (int) y;
@@ -43,6 +43,8 @@ void GameObject::testCollision(Player& p)
         collide(p);
 }
 
+//isColliding Vector version
+/*
 bool GameObject::isColliding(Player& p)
 {
     const int LEFT = 0;
@@ -55,7 +57,7 @@ bool GameObject::isColliding(Player& p)
 
     // Left
     myCoords.push_back(x);
-    playerCoords.push_back(p.x);
+    playerCoords.push_back(p.x);    
     // Right
     myCoords.push_back(x + w);
     playerCoords.push_back(p.x + p.w);
@@ -74,6 +76,40 @@ bool GameObject::isColliding(Player& p)
         playerCoords[BOTTOM] < myCoords[TOP] ||
         myCoords[BOTTOM] < playerCoords[TOP]);
 }
+*/
+
+//isColliding Array version
+bool GameObject::isColliding(Player& p) {
+    const int LEFT = 0;
+    const int RIGHT = 1;
+    const int TOP = 2;
+    const int BOTTOM = 3;
+
+    double playerCoords[4];
+    double myCoords[4];
+
+    // Left
+    myCoords[LEFT] = x;
+    playerCoords[LEFT] = p.x;
+    // Right
+    myCoords[RIGHT] = x + w;
+    playerCoords[RIGHT] = p.x + p.w;
+    // Top
+    myCoords[TOP] = y;
+    playerCoords[TOP] = p.y;
+    // Bottom
+    myCoords[BOTTOM] = y + h;
+    playerCoords[BOTTOM] = p.y + p.h;
+
+    return !(
+        // One to the left of the other
+        playerCoords[RIGHT] < myCoords[LEFT] ||
+        myCoords[RIGHT] < playerCoords[LEFT] ||
+        // One above the other
+        playerCoords[BOTTOM] < myCoords[TOP] ||
+        myCoords[BOTTOM] < playerCoords[TOP]);
+}
+
 
 bool GameObject::shouldDelete() const
 {

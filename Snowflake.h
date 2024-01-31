@@ -10,6 +10,6 @@ public:
     Snowflake();
     Snowflake(double x, double y);
 
-    void update(double dt) override;
+    virtual void update(double dt) override;
     virtual void collide(Player& o) override;
 };

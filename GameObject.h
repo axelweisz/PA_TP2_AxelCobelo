@@ -17,22 +17,22 @@ public:
     bool shouldDelete() const;
 
     double x;
-    double bloop[256];
+    //double bloop[256];
     double y;
-    double blaap[256];
+    //double blaap[256];
     double w, h;
 protected:
     bool isColliding(Player& obj);
     virtual void collide(Player& obj) = 0;
 
     double vx;
-    double bleep[256];
+    //double bleep[256];
     double vy;
-    double bliip[256];
+    //double bliip[256];
     double ax;
-    double bluup[256];
+    //double bluup[256];
     double ay;
-    double blyyp[256];
+    //double blyyp[256];
 
     double color_r, color_g, color_b, color_a;
     

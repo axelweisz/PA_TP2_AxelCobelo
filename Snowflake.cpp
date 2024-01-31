@@ -27,9 +27,8 @@ void Snowflake::update(double dt)
     GameObject::update(dt);
 
     if(y > SCREEN_HEIGHT + h)
-    {
         deleteMe = true;
-    }
+    
 }
 
 void Snowflake::collide(Player& p)

@@ -6,6 +6,7 @@
 class SnowflakeSine : public Snowflake
 {
 public:
+    SnowflakeSine();
     SnowflakeSine(double x, double y);
 
     void update(double dt) override;
